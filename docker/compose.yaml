@@ -1,0 +1,41 @@
+services:
+  db:
+    container_name: "${POSTGRES_CONTAINER_NAME}"
+    image: postgres:14.5
+    restart: always
+    env_file: ../.env
+    ports:
+      - "${POSTGRES_PORT}:${POSTGRES_PORT}"
+    networks:
+      - application
+
+  db-service:
+    container_name: "${DB_SERVER_CONTAINER_NAME}"
+    env_file: ../.env
+    build:
+      context: ..
+      dockerfile: docker/go-db-srv/Dockerfile
+    ports:
+      - "${DB_SERVER_PORT}:${DB_SERVER_PORT}"
+    depends_on:
+      - db
+    networks:
+      - application
+
+  server:
+    container_name: "${SERVER_CONTAINER_NAME}"
+    env_file: ../.env
+    build:
+      context: ..
+      dockerfile: docker/go-chatting-app-srv/Dockerfile
+    ports:
+      - "${SERVER_PORT}:${SERVER_PORT}"
+    depends_on:
+      - db
+      - db-service
+    networks:
+      - application
+
+networks:
+  application:
+    driver: "bridge"

@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "data": [
+            "datadata",
+            "somemoredata"
+        ]
+    },
+    {
+        "id": 2,
+        "data": [
+            "datadata",
+            "somemoredata",
+            "additional data"
+        ]
+    },
+    {
+        "id": 3,
+    }
+]
