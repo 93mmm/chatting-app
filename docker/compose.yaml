@@ -1,9 +1,11 @@
 services:
   db:
     container_name: "${POSTGRES_CONTAINER_NAME}"
-    image: postgres:14.5
+    image: postgres:14.5-alpine
     restart: always
     env_file: ../.env
+    volumes:
+      - pgdata:/var/lib/postgresql/data
     ports:
       - "${POSTGRES_PORT}:${POSTGRES_PORT}"
     networks:
@@ -39,3 +41,7 @@ services:
 networks:
   application:
     driver: "bridge"
+
+volumes:
+  pgdata:
+    driver: local

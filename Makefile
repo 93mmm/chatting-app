@@ -1,3 +1,5 @@
+# TODO: is $PROJECT_ROOT same as $PWD?
+
 PROJECT_ROOT := $(shell pwd)
 
 # Docker Compose
