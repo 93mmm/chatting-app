@@ -7,6 +7,10 @@ run_docker:
 	@echo docker-compose up
 	docker-compose --env-file .env -f docker/compose.yaml up --build
 
+run_docker_without_rebuild:
+	@echo docker-compose up
+	docker-compose --env-file .env -f docker/compose.yaml up
+
 # Golang-Postgresql server
 run_pgserver:
 	@echo pgsql server up
