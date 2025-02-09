@@ -8,6 +8,10 @@ import (
 )
 
 func getInt(env string) (int, error) {
+    value := os.Getenv(env)
+    if value == "" {
+        return 0, errors.New(fmt.Sprintf("Env variable %v doesn't exists", env))
+    }
     return strconv.Atoi(os.Getenv(env))
 }
 

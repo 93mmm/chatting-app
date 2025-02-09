@@ -1,4 +1,4 @@
-module github.com/93mmm/chatting-app/app/internal/services/server
+module github.com/93mmm/chatting-app/app/internal/services/goserver
 
 go 1.23.5
 

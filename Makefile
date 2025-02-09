@@ -19,7 +19,7 @@ run_pgserver:
 # Golang chatting-app server
 run_chatting_app:
 	@echo chatting-app server up
-	cd app/internal/services/server && go mod tidy && cd cmd && CHATTING_APP_WORKING_DIRECTORY=$(PROJECT_ROOT) go run .
+	cd app/internal/services/goserver && go mod tidy && cd cmd && CHATTING_APP_WORKING_DIRECTORY=$(PROJECT_ROOT) go run .
 
 # Localhost server to open index.html and test api
 run_localhost:

@@ -1,7 +1,10 @@
 package env
 
 import (
-    "github.com/joho/godotenv"
+	"errors"
+	"os"
+
+	"github.com/joho/godotenv"
 )
 
 type server struct {
@@ -22,12 +25,13 @@ var GoDatabaseServer    *server
 var PostgresDatabase    *database
 
 func Init() error {
-    // TODO: add logic: if unable to open .env file -> file missing
-    //                  if one of variables is NULL -> variable missing
-
     err := getCWD()
     if err != nil {
         return err
+    }
+
+    if _, err = os.Stat(CWD + ".env"); errors.Is(err, os.ErrNotExist) {
+        return err;
     }
 
     err = godotenv.Load(CWD + ".env")
