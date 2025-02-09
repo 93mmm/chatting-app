@@ -18,6 +18,8 @@ services:
     build:
       context: ..
       dockerfile: docker/go-db-srv/Dockerfile
+    volumes:
+      - go-modules:/go/pkg/mod
     ports:
       - "${DB_SERVER_PORT}:${DB_SERVER_PORT}"
     depends_on:
@@ -31,6 +33,8 @@ services:
     build:
       context: ..
       dockerfile: docker/go-chatting-app-srv/Dockerfile
+    volumes:
+      - go-modules:/go/pkg/mod
     ports:
       - "${SERVER_PORT}:${SERVER_PORT}"
     depends_on:
@@ -45,4 +49,6 @@ networks:
 
 volumes:
   pgdata:
+    driver: local
+  go-modules:
     driver: local
