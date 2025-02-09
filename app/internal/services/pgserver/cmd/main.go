@@ -1,28 +1,28 @@
 package main
 
 import (
-	"log"
-	"net/http"
+	"context"
 	"fmt"
+	"os"
 
 	"github.com/93mmm/chatting-app/app/pkg/env"
+	"github.com/jackc/pgx/v5"
 )
 
 func main() {
-    err := env.Init()
-    if err != nil {
-        log.Fatal(err)
-    }
-    fmt.Println(env.GoDatabaseServer)
-    fmt.Println(env.PostgresDatabase)
-    fmt.Println(env.GoDatabaseServer)
-    fmt.Println(env.CWD)
+    env.Init()
 
-    resp, err := http.Get(fmt.Sprintf("http://%v:%v/test",
-                                      env.GoMainServer.ContName,
-                                      env.GoMainServer.Port))
-    if err != nil {
-        log.Fatal(err)
-    }
-    log.Println(resp)
+    url := fmt.Sprintf("postgres://%v:%v@%v:5432/%v",
+                       env.PostgresDatabase.User,
+                       env.PostgresDatabase.Password,
+                       env.PostgresDatabase.ContName,
+                       env.PostgresDatabase.DbName,
+                       )
+	conn, err := pgx.Connect(context.Background(), url)
+	if err != nil {
+		fmt.Fprintf(os.Stderr, "Unable to connect to database: %v\n", err)
+		os.Exit(1)
+	}
+	defer conn.Close(context.Background())
+    fmt.Println("Connected to database")
 }

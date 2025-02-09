@@ -28,9 +28,8 @@ CREATE TABLE Messages (
     userId           bigint    NOT NULL,
     chatId           bigint    NOT NULL,
     messageIdForUser SERIAL    UNIQUE NOT NULL,
-    sent             TIMESTAMP  DEFAULT NOW(),
+    sent             TIMESTAMP DEFAULT NOW(),
     text             TEXT
 );
 
--- TODO: connect to this database with golang
---       test these databases
+-- TODO: test these databases

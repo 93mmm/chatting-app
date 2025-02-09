@@ -10,7 +10,8 @@ type server struct {
 }
 
 type database struct {
-    Port        int
+    User        string
+    DbName      string
     Password    string
     ContName    string
 }

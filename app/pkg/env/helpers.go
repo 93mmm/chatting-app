@@ -66,7 +66,12 @@ func initDbServer() error {
 }
 
 func initPostgresDb() error {
-    port, err := getInt("POSTGRES_PORT")
+    user, err := getString("POSTGRES_USER")
+    if err != nil {
+        return err
+    }
+
+    dbName, err := getString("POSTGRES_DB")
     if err != nil {
         return err
     }
@@ -76,15 +81,16 @@ func initPostgresDb() error {
         return err
     }
 
-    name, err := getString("POSTGRES_CONTAINER_NAME")
+    contName, err := getString("POSTGRES_CONTAINER_NAME")
     if err != nil {
         return err
     }
 
     PostgresDatabase = &database{
-        Port: port,
+        User: user,
+        DbName: dbName,
         Password: password,
-        ContName: name,
+        ContName: contName,
     }
     return nil
 }
