@@ -21,7 +21,7 @@ func (this *RegisterUser) GetData(c *gin.Context) error {
     if err = json.Unmarshal(data, this); err != nil {
         return err
     }
-    if len(*this.Username) == 0 {
+    if this.Username == nil || len(*this.Username) == 0 {
         this.Username = nil
     }
     if len(this.PasswordHash) == 0 {
