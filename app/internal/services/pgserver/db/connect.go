@@ -1,13 +1,17 @@
 package db
 
 import (
+	"context"
 	"fmt"
+	"log"
 
 	"github.com/93mmm/chatting-app/app/pkg/env"
+	"github.com/jackc/pgx/v5"
 )
 
+var conn *pgx.Conn
 
-func GetUrl() string {
+func getUrl() string {
     return fmt.Sprintf("postgres://%v:%v@%v:5432/%v",
                        env.PostgresDatabase.User,
                        env.PostgresDatabase.Password,
@@ -16,3 +20,15 @@ func GetUrl() string {
                        )
 }
 
+func CreateConnection() {
+    var err error
+	conn, err = pgx.Connect(context.Background(), getUrl())
+	if err != nil {
+        log.Fatalf("Unable to connect to database: %v\n", err)
+	}
+    log.Println("Connected to database")
+}
+
+func Close() {
+    conn.Close(context.Background())
+}

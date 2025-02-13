@@ -12,7 +12,7 @@ import (
 
 func test(c *gin.Context) {
     fmt.Println(env.CWD)
-    data, err := json_handlers.ReadJSON(env.CWD + "json/test.json")
+    data, err := json_rw.Read(env.CWD + "json/test.json")
     if err != nil {
         log.Println(err)
     }
