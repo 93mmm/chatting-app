@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY . .
 
-CMD [ "make", "pgserver" ]
+CMD [ "make", "test" ]

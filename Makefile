@@ -1,32 +1,47 @@
+# ========================================================================
+# |                        Set working directory                         |
+# ========================================================================
 PROJECT_ROOT := $(shell pwd)
 
-# Docker Compose
-docker:
-	@echo docker-compose up
-	docker-compose --env-file .env -f docker/compose.yaml up --build
 
-docker_without_rebuild:
-	@echo docker-compose up
+
+# ========================================================================
+# |                         Run Docker commands                          |
+# ========================================================================
+run_app:
+	docker-compose --env-file .env -f docker/compose.yaml up --build db db-service server
+
+run_app_without_rebuild:
 	docker-compose --env-file .env -f docker/compose.yaml up
 
-# Golang-Postgresql server
+
+
+# ========================================================================
+# |                  Run tests inside Docker container                   |
+# ========================================================================
+run_tests:
+	docker-compose --env-file .env -f docker/compose.yaml up --build tester
+
+test:
+	cd app/internal/services/pgserver && CHATTING_APP_WORKING_DIRECTORY=$(PROJECT_ROOT) go test ./... -v
+	cd app/internal/services/goserver && CHATTING_APP_WORKING_DIRECTORY=$(PROJECT_ROOT) go test ./... -v
+
+
+
+# ========================================================================
+# |                       Launch app inside Docker                       |
+# ========================================================================
 pgserver:
-	@echo pgsql server up
 	cd app/internal/services/pgserver && go mod tidy && cd cmd && CHATTING_APP_WORKING_DIRECTORY=$(PROJECT_ROOT) go run .
 
-# Golang chatting-app server
 chatting_app:
-	@echo chatting-app server up
 	cd app/internal/services/goserver && go mod tidy && cd cmd && CHATTING_APP_WORKING_DIRECTORY=$(PROJECT_ROOT) go run .
 
+
+
+# ========================================================================
+# |                         Run pseudo-frontend                          |
+# ========================================================================
 # Localhost server to open index.html and test api
 localhost:
-	@echo localhost up
 	python3 -m http.server 8000
-
-# Run tests
-test:
-	@echo testing pgserver
-	cd app/internal/services/pgserver && go test ./... -v
-	@echo testing goserver
-	cd app/internal/services/goserver && go test ./... -v

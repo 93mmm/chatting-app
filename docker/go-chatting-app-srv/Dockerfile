@@ -4,4 +4,4 @@ WORKDIR /app
 
 COPY . .
 
-CMD [ "make", "run_chatting_app" ]
+CMD [ "make", "chatting_app" ]

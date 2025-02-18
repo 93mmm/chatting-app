@@ -12,6 +12,10 @@ realtime web chatting app
 
 ### Run application:
 1. Configure .env file using .env.template file
-```
-make run_chatting_app
-```
+2. ```make run_app```
+
+### Run tests:
+1. Run application
+2. ```make run_tests```
+> [!NOTE]
+> Database will be cleared

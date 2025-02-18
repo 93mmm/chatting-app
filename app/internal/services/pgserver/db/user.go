@@ -3,7 +3,6 @@ package db
 import (
 	"context"
 	"errors"
-	"fmt"
 
 	"github.com/93mmm/chatting-app/app/internal/services/pgserver/models"
 )
@@ -11,7 +10,6 @@ import (
 func checkIfExists(regUsr models.RegisterUser) (bool, error) {
     var result int
     err := conn.QueryRow(context.Background(), "SELECT 1 FROM Users WHERE email = $1 OR username = $2", regUsr.Email, regUsr.Username).Scan(&result)
-    fmt.Printf("result: %v\n", result)
     return result == 1, err
 }
 

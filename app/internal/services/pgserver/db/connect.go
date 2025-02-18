@@ -7,6 +7,7 @@ import (
 
 	"github.com/93mmm/chatting-app/app/pkg/env"
 	"github.com/jackc/pgx/v5"
+	"github.com/jackc/pgx/v5/pgconn"
 )
 
 var conn *pgx.Conn
@@ -27,6 +28,10 @@ func CreateConnection() {
         log.Fatalf("Unable to connect to database: %v\n", err)
 	}
     log.Println("Connected to database")
+}
+
+func Exec(query string) (pgconn.CommandTag, error) {
+    return conn.Exec(context.Background(), query)
 }
 
 func Close() {
