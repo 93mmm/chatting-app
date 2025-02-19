@@ -21,6 +21,7 @@ CREATE TABLE ChatParticipants (
     chatId      bigint      NOT NULL,
     joinedAt    TIMESTAMP   DEFAULT NOW(),
     role        char        DEFAULT 'm',
+    PRIMARY KEY (userId, chatId),
     FOREIGN KEY (userId) REFERENCES Users(id),
     FOREIGN KEY (chatId) REFERENCES Chats(id)
 );
@@ -33,5 +34,3 @@ CREATE TABLE Messages (
     sent        TIMESTAMP   DEFAULT NOW(),
     text        TEXT
 );
-
--- TODO: test these databases

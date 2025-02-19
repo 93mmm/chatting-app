@@ -25,6 +25,9 @@ var GoDatabaseServer    *server
 var PostgresDatabase    *database
 
 func Init() error {
+    if len(CWD) != 0 && GoMainServer != nil && GoDatabaseServer != nil && PostgresDatabase != nil {
+        return nil
+    }
     err := getCWD()
     if err != nil {
         return err

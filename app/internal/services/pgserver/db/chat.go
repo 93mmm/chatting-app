@@ -7,7 +7,7 @@ import (
 	"github.com/93mmm/chatting-app/app/internal/services/pgserver/models"
 )
 
-func CreateChat(data models.Chat) (int, error) {
+func CreateChat(data models.ChatAdd) (int, error) {
     tx, err := conn.Begin(context.Background())
     if err != nil {
         return 0, err
@@ -57,5 +57,9 @@ func EditChat(data models.EditChat) (error) {
         return err
     }
     return nil
+}
 
+func ExistsChat(chat int) bool {
+    conn.QueryRow(context.Background(), "SELECT 1 FROM Chats WHERE id=$1", chat).Scan(&chat)
+    return chat == 1
 }

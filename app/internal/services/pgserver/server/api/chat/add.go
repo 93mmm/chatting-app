@@ -8,14 +8,20 @@ import (
 )
 
 func Add(c *gin.Context) {
-    var chatInfo models.Chat
+    var chat models.ChatAdd
 
-    if err := chatInfo.GetData(c); err != nil {
+    if err := chat.GetData(c); err != nil {
         helpers.WrapAndSendError(c, err)
         return 
     }
 
-    id, err := db.CreateChat(chatInfo)
+    id, err := db.CreateChat(chat)
+    if err != nil {
+        helpers.WrapAndSendError(c, err)
+        return
+    }
+
+    err = db.AddParticipants(id, chat)
     if err != nil {
         helpers.WrapAndSendError(c, err)
         return

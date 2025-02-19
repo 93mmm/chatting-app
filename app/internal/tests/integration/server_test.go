@@ -1,8 +1,6 @@
-package server
+package integration
 
 import (
-	"bytes"
-	"io"
 	"log"
 	"net/http"
 	"testing"
@@ -22,31 +20,6 @@ type requestResponce struct {
     JSONBody         string
     ExpectedStatus   int
     ExpectedJSONBody string
-}
-
-func makeGetRequest(url string) (*answer, error) {
-    resp, err := http.Get(url)
-    if err != nil {
-        return nil, err
-    }
-    defer resp.Body.Close()
-    data, err := io.ReadAll(resp.Body)
-    return &answer{string(data), resp.StatusCode}, nil
-}
-
-func makeJSONRequest(method, url string, rr *requestResponce) (*answer, error) {
-    client := &http.Client{}
-    request, err := http.NewRequest(method, url, bytes.NewBufferString(rr.JSONBody))
-    if err != nil {
-        return nil, err
-    }
-    resp, err := client.Do(request)
-    if err != nil {
-        return nil, err
-    }
-    defer resp.Body.Close()
-    data, err := io.ReadAll(resp.Body)
-    return &answer{string(data), resp.StatusCode}, nil
 }
 
 func testChatsCreate(t *testing.T) {
@@ -81,23 +54,6 @@ func testChatsCreate(t *testing.T) {
     }
 }
 
-// func testChatsGet(t *testing.T) {
-//     if err := env.Init(); err != nil {
-//         log.Fatal(err)
-//     }
-//     url := helpers.GetDatabaseServerUrl("/api/chat/get")
-//     rrs := []requestResponce{
-//         {
-//             "",
-//             http.StatusOK,
-//             `{"id":1}`,
-//         },
-//     }
-//     for _, rr := range rrs {
-//         makeGetRequest()
-//     }
-// }
-//
 func testUser(t *testing.T) {
     if err := env.Init(); err != nil {
         log.Fatal(err)
@@ -156,13 +112,4 @@ func clearDatabaseAfterTests() {
     db.CreateConnection()
     defer db.Close()
     db.Exec("TRUNCATE Messages, ChatParticipants, Chats, Users RESTART IDENTITY CASCADE;")
-}
-
-func TestServer(t *testing.T) {
-    clearDatabaseAfterTests()
-    t.Cleanup(clearDatabaseAfterTests)
-    t.Run("TestUser", testUser)
-    t.Run("TestChats", testChatsCreate)
-    // t.Run("TestChats", testChatsGet)
-    // t.Run("TestChatUsers", testChatsEdit)
 }
