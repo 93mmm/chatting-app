@@ -23,7 +23,7 @@ run_tests:
 	docker-compose --env-file .env -f docker/compose.yaml up --build tester
 
 test:
-	cd app/internal/tests && CHATTING_APP_WORKING_DIRECTORY=$(PROJECT_ROOT) go test ./... -v
+	cd app/internal/tests/runners && CHATTING_APP_WORKING_DIRECTORY=$(PROJECT_ROOT) go test ./... -v
 
 
 
