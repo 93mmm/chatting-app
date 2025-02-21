@@ -20,9 +20,11 @@ func TestUser(t *testing.T) {
         "chat/create.json",
     }
     for _, jsonTest := range tests {
-        for _, link := range helpers.ReadJsonTests(jsonTest) {
-            responce, err := helpers.MakeRequest(link.Sent)
-            helpers.AssertExpected(t, link.Expected, *responce, err)
-        }
+        t.Run(jsonTest, func (t *testing.T) {
+            for _, link := range helpers.ReadJsonTests(jsonTest) {
+                responce, err := helpers.MakeRequest(link.Sent)
+                helpers.AssertExpected(t, link.Expected, *responce, err)
+            }
+        })
     }
 }
