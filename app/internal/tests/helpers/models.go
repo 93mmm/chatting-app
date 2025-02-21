@@ -1,16 +1,18 @@
 package helpers
 
 type Request struct {
-    Url         string
-    JsonBody    string
+    Url         string      `json:"url"`
+    Method      string      `json:"method"`
+    ContentType string      `json:"content_type"`
+    Body        any         `json:"body"`
 }
 
 type Responce struct {
-    Code        int
-    JsonBody    string
+    Code        int         `json:"code"`
+    Body        any         `json:"body"`
 }
 
-type ExpectedResponceToRequest struct {
-    Sent        Request
-    Expected    Responce
+type RRTest struct {
+    Sent        Request      `json:"sent"`
+    Expected    Responce     `json:"expected"`
 }

@@ -1,0 +1,82 @@
+[
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 1,
+                "members": [2, 3],
+                "name": "Awesome Chat",
+                "description": "Awesome Chat Description"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 1 }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 1,
+                "members": [2],
+                "name": "Awesome Chat",
+                "description": "Awesome Chat Description"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 2 }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 1,
+                "members": [2, 3],
+                "name": "Awesome Chat",
+                "description": "Awesome Chat Description"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 3 }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 100000,
+                "members": [100000],
+                "name": "Awesome Chat",
+                "description": "Awesome Chat Description"
+            }
+        },
+        "expected": {
+            "code": 400,
+            "body": { "error": "Internal database error" }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 1,
+                "members": [2, 3, 100000],
+                "name": "Awesome Chat",
+                "description": "Awesome Chat Description"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 4 }
+        }
+    }
+]

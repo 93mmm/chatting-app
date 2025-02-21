@@ -1,0 +1,103 @@
+[
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/user/reg",
+            "body": {
+                "username": "awesomeusername",
+                "email": "awesomeemail",
+                "pwdHash": "awesomepasswordhash"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 1 }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/user/reg",
+            "body": {
+                "email": "awesomeemail1",
+                "pwdhash": "awesomehash"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 2 }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/user/reg",
+            "body": {
+                "username": "usrnm",
+                "email": "awesomeemail2",
+                "pwdhash": "awesomehash"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 3 }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/user/reg",
+            "body": {
+                "username": "usrnme",
+                "email": "awesomeemail2",
+                "pwdhash": "awesomehash"
+            }
+        },
+        "expected": {
+            "code": 400,
+            "body": { "error": "User already exists" }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/user/reg",
+            "body": {
+                "username": "usrnme",
+                "pwdhash": "awesomehash"
+            }
+        },
+        "expected": {
+            "code": 400,
+            "body": { "error": "Invalid Email" }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/user/reg",
+            "body": {
+                "email": "awesomeemail3",
+                "pwdhash": ""
+            }
+        },
+        "expected": {
+            "code": 400,
+            "body": { "error": "Invalid PasswordHash" }
+        }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/user/reg",
+            "body": {
+                "email": "awesomeemail3",
+                "pwdhash": "awesomehash"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 4 }
+        }
+    }
+]

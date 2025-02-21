@@ -33,6 +33,15 @@ func getCWD() error {
     return nil
 }
 
+func getJsonPath() error {
+    path, err := getString("JSON_TEST_FILES_PATH")
+    if err != nil {
+        return err
+    }
+    JsonTestFiles = CWD + path
+    return nil
+}
+
 func initGoMainServer() (error) {
     port, err := getInt("SERVER_PORT")
     if err != nil {

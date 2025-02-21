@@ -2,14 +2,19 @@ package helpers
 
 import (
 	"bytes"
+	"encoding/json"
 	"fmt"
 	"io"
 	"net/http"
 )
 
-func request(method string, r Request) (*Responce, error) {
+func MakeRequest(r Request) (*Responce, error) {
     client := http.Client{}
-    request, err := http.NewRequest(method, r.Url, bytes.NewBufferString(r.JsonBody))
+    jsonBody, err := json.Marshal(r.Body)
+    if err != nil {
+        return nil, err
+    }
+    request, err := http.NewRequest(r.Method, GetDatabaseServerUrl(r.Url), bytes.NewBuffer(jsonBody))
     if err != nil {
         return nil, err
     }
@@ -25,20 +30,15 @@ func request(method string, r Request) (*Responce, error) {
     return &Responce{responce.StatusCode, string(body)}, nil
 }
 
-func PostRequest(r Request) (*Responce, error) {
-    return request("POST", r)
-}
-
-func GetRequest(r Request) (*Responce, error) {
-    return request("GET", r)
-}
-
 func PushTestUsers() {
     url := GetDatabaseServerUrl("/api/user/reg")
     for i := 0; i < 100; i++ {
-        PostRequest(Request{
-            url,
-            fmt.Sprintf(`{"email":"awesomeemail%v","pwdhash":"awesomehash"}`, i),
-        })
+        MakeRequest(
+            Request{
+                Url: url,
+                Method: "POST",
+                Body: fmt.Sprintf(`{"email":"awesomeemail%v","pwdhash":"awesomehash"}`, i),
+            },
+        )
     }
 }

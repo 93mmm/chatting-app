@@ -20,6 +20,7 @@ type database struct {
 }
 
 var CWD                 string
+var JsonTestFiles       string
 var GoMainServer        *server
 var GoDatabaseServer    *server
 var PostgresDatabase    *database
@@ -38,6 +39,11 @@ func Init() error {
     }
 
     err = godotenv.Load(CWD + ".env")
+    if err != nil {
+        return err
+    }
+
+    err = getJsonPath()
     if err != nil {
         return err
     }

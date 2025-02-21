@@ -12,3 +12,10 @@ func GetDatabaseServerUrl(route string) string {
     }
     return fmt.Sprintf("http://%v:%v%v", env.GoDatabaseServer.ContName, env.GoDatabaseServer.Port, route)
 }
+
+func GetTestJsonPath(route string) string {
+    if route[0] != '/' {
+        route = "/" + route
+    }
+    return env.JsonTestFiles + route
+}
