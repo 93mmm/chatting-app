@@ -6,8 +6,6 @@ CREATE TABLE Users (
     regAt       TIMESTAMP   DEFAULT NOW()
 );
 
--- some-id + 20 000 000 000 => group chat id
--- some-id                  => chat with user some-id
 CREATE TABLE Chats (
     id          BIGSERIAL   PRIMARY KEY,
     creatorId   bigint,
