@@ -3,35 +3,20 @@ package db
 import (
 	"context"
 	"errors"
+	"fmt"
 
 	"github.com/93mmm/chatting-app/app/internal/services/pgserver/models"
 )
 
-func checkIfExists(regUsr models.RegisterUser) (bool, error) {
-    var result int
-    err := conn.QueryRow(context.Background(), "SELECT 1 FROM Users WHERE email = $1 OR username = $2", regUsr.Email, regUsr.Username).Scan(&result)
-    return result == 1, err
-}
+func GetUserInfo(id int) (models.UserInfo, error) {
+    var info models.UserInfo
+    query := "SELECT username, email, regAt FROM Users WHERE id=$1"
 
-func RegisterUser(regUsr models.RegisterUser) (int, error) {
-    exists, err := checkIfExists(regUsr)
-    if exists {
-        return 0, errors.New("User already exists")
-    }
-
-    tx, err := conn.Begin(context.Background())
+    info.Id = id
+    err := conn.QueryRow(context.Background(), query, id).Scan(&info.Username, &info.Email, &info.RegAt)
     if err != nil {
-        return 0, err
+        fmt.Println(err)
+        return info, errors.New("Not found specified user")
     }
-    defer tx.Rollback(context.Background())
-
-    var id int
-    query := "INSERT INTO Users (email, username, pwdHash) VALUES ($1, $2, $3) RETURNING id"
-    
-    err = tx.QueryRow(context.Background(), query, regUsr.Email, regUsr.Username, regUsr.PasswordHash).Scan(&id)
-    if err != nil {
-        return 0, err
-    }
-
-    return id, tx.Commit(context.Background())
+    return info, nil
 }

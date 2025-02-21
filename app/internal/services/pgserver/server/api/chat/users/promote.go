@@ -12,7 +12,7 @@ import (
 func Promote(c *gin.Context) {
     var user models.MoveUserInChat
     if err := user.GetData(c); err != nil {
-        helpers.WrapAndSendError(c, err)
+        helpers.SendError(c, err)
     }
     fmt.Println(user)
 }

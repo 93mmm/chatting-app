@@ -3,17 +3,18 @@ package models
 import (
 	"encoding/json"
 	"errors"
+	t "time"
 
 	"github.com/gin-gonic/gin"
 )
 
-type RegisterUser struct {
+type RegUser struct {
+    Username        *string  `json:"username"`
     Email           string  `json:"email"`
     PasswordHash    string  `json:"pwdHash"`
-    Username        *string  `json:"username"`
 }
 
-func (this *RegisterUser) GetData(c *gin.Context) error {
+func (this *RegUser) GetData(c *gin.Context) error {
     data, err := c.GetRawData()
     if err != nil {
         return err 
@@ -33,20 +34,10 @@ func (this *RegisterUser) GetData(c *gin.Context) error {
     return nil
 }
 
-type EditUser struct {
+type UserInfo struct {
     Id              int     `json:"id"`
-    Username        string  `json:"username"`
+    Username        *string `json:"username"`
     Email           string  `json:"email"`
-    PasswordHash    string  `json:"pwdHash"`
+    RegAt           t.Time  `json:"regAt"`
 }
 
-func (this *EditUser) GetData(c *gin.Context) error {
-    data, err := c.GetRawData()
-    if err != nil {
-        return err 
-    }
-    if err = json.Unmarshal(data, this); err != nil {
-        return err
-    }
-    return nil
-}

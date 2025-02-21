@@ -99,5 +99,19 @@
             "code": 201,
             "body": { "id": 4 }
         }
+    },
+    {
+        "sent": {
+            "method": "POST",
+            "url": "/api/user/reg",
+            "body": {
+                "email": "awesomeemail4",
+                "pwdhash": "awesomehash"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 5 }
+        }
     }
 ]

@@ -17,14 +17,21 @@ func setupRoutes(router *gin.Engine) {
         chatApi.POST("/create", chat.Add)
         chatApi.PUT("/edit", chat.Edit)
         chatApi.GET("/get/:id", chat.Get)
-
-        chatApi.POST("/users/add", users.Add)
-        chatApi.DELETE("/users/rm", users.Remove)
-        chatApi.PUT("/users/promote", users.Promote)
     }
+
+    {
+        chatApi := router.Group("/api/chat/users")
+
+        chatApi.POST("/add", users.Add)
+        chatApi.DELETE("/rm", users.Remove)
+        chatApi.PUT("/promote", users.Promote)
+    }
+
     {
         userApi := router.Group("/api/user")
-        userApi.POST("/reg", user.Reg)
+
+        userApi.POST("/reg", user.Reg) // completed
+        userApi.GET("/get/:id", user.Get) // completed
     }
 }
 

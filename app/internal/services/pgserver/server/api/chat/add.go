@@ -11,19 +11,23 @@ func Add(c *gin.Context) {
     var chat models.ChatAdd
 
     if err := chat.GetData(c); err != nil {
-        helpers.WrapAndSendError(c, err)
+        helpers.SendError(c, err)
         return 
     }
 
     id, err := db.CreateChat(chat)
     if err != nil {
-        helpers.WrapAndSendError(c, err)
+        helpers.SendError(c, err)
         return
     }
 
-    err = db.AddParticipants(id, chat)
-    if err != nil {
-        helpers.WrapAndSendError(c, err)
+    if err = db.AddCreator(id, chat); err != nil {
+        helpers.SendError(c, err)
+        return
+    }
+    
+    if err = db.AddParticipants(id, chat); err != nil {
+        helpers.SendError(c, err)
         return
     }
 

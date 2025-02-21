@@ -1,7 +1,7 @@
 CREATE TABLE Users (
     id          BIGSERIAL   PRIMARY KEY,
-    email       VARCHAR(63) UNIQUE NOT NULL,
-    username    VARCHAR(63) UNIQUE,
+    email       TEXT        UNIQUE NOT NULL,
+    username    TEXT        UNIQUE,
     pwdHash     TEXT        NOT NULL,
     regAt       TIMESTAMP   DEFAULT NOW()
 );

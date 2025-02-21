@@ -15,7 +15,7 @@ func CreateChat(data models.ChatAdd) (int, error) {
     defer tx.Rollback(context.Background())
 
     var id int
-    query := "INSERT INTO Chats (creatorId, name, description) VALUES ($1, $2, $3) RETURNING id"
+    query := "INSERT INTO Chats (creatorId, name, description) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING RETURNING id"
     
     err = tx.QueryRow(context.Background(), query, data.CreatorId, data.Name, data.Description).Scan(&id)
     if err != nil {

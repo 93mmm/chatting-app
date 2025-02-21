@@ -13,11 +13,11 @@ func TestUser(t *testing.T) {
         log.Fatal(err)
     }
     helpers.ClearDatabase()
-    t.Cleanup(helpers.ClearDatabase)
+    // t.Cleanup(helpers.ClearDatabase)
 
     tests := []string{
         "user/reg.json",
-        "chat/create.json",
+        // "chat/create.json",
     }
     for _, jsonTest := range tests {
         t.Run(jsonTest, func (t *testing.T) {

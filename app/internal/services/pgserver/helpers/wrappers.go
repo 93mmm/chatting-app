@@ -25,7 +25,7 @@ type wrappedError struct {
     ErrMsg  string  `json:"error"`
 }
 
-func WrapAndSendError(c *gin.Context, err error) {
+func SendError(c *gin.Context, err error) {
     err = parseError(err)
     e := wrappedError{ErrMsg: err.Error()}
     c.JSON(http.StatusBadRequest, e)
@@ -40,3 +40,6 @@ func WrapAndSendId(c *gin.Context, id int) {
     c.JSON(http.StatusCreated, e)
 }
 
+func SendStruct(c *gin.Context, status int, data any) {
+    c.JSON(status, data)
+}
