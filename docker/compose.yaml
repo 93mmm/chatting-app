@@ -14,6 +14,7 @@ services:
 
   db-service:
     container_name: "${DB_SERVER_CONTAINER_NAME}"
+    stop_grace_period: 1s
     env_file: ../.env
     build:
       context: ..
@@ -29,6 +30,7 @@ services:
 
   server:
     container_name: "${SERVER_CONTAINER_NAME}"
+    stop_grace_period: 1s
     env_file: ../.env
     build:
       context: ..
@@ -45,6 +47,7 @@ services:
 
   tester:
     container_name: "${TESTER_CONTAINER_NAME}"
+    stop_grace_period: 1s
     env_file: ../.env
     build:
       context: ..
