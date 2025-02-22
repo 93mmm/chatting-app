@@ -10,7 +10,7 @@ import (
 )
 
 
-func Get(c *gin.Context) {
+func GetById(c *gin.Context) {
     id, err := strconv.Atoi(c.Param("id"))
     if err != nil {
         helpers.SendError(c, err)

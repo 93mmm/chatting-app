@@ -1,18 +1,13 @@
-package chat
+package chat_users
 
 import (
-	"fmt"
+	"errors"
 
 	"github.com/93mmm/chatting-app/app/internal/services/pgserver/helpers"
-	"github.com/93mmm/chatting-app/app/internal/services/pgserver/models"
 	"github.com/gin-gonic/gin"
 )
 
-// TODO: end this later
+// TODO
 func Promote(c *gin.Context) {
-    var user models.MoveUserInChat
-    if err := user.GetData(c); err != nil {
-        helpers.SendError(c, err)
-    }
-    fmt.Println(user)
+    helpers.SendError(c, errors.New("Not implemented yet"))
 }

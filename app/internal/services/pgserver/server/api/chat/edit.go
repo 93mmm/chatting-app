@@ -1,12 +1,13 @@
 package chat
 
 import (
-	"net/http"
+	"errors"
 
+	"github.com/93mmm/chatting-app/app/internal/services/pgserver/helpers"
 	"github.com/gin-gonic/gin"
 )
 
-// TODO: rewrite this 
+// TODO
 func Edit(c *gin.Context) {
-    c.Status(http.StatusNoContent)
+    helpers.SendError(c, errors.New("Not implemented yet"))
 }

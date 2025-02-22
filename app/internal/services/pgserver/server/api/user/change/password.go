@@ -1,4 +1,4 @@
-package chat_users
+package user_change
 
 import (
 	"errors"
@@ -8,6 +8,6 @@ import (
 )
 
 // TODO
-func Add(c *gin.Context) {
+func Password(c *gin.Context) {
     helpers.SendError(c, errors.New("Not implemented yet"))
 }

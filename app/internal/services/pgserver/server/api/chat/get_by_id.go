@@ -1,4 +1,4 @@
-package chat_users
+package chat
 
 import (
 	"errors"
@@ -8,6 +8,6 @@ import (
 )
 
 // TODO
-func Add(c *gin.Context) {
+func GetById(c *gin.Context) {
     helpers.SendError(c, errors.New("Not implemented yet"))
 }

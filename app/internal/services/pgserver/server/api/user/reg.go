@@ -23,10 +23,10 @@ func Reg(c *gin.Context) {
         var id int
         query := `INSERT INTO Users (username, email, pwdHash) SELECT $1, $2, $3 WHERE NOT EXISTS (SELECT 1 FROM Users WHERE username = $1 OR email = $2) RETURNING ID;`
         err := tx.QueryRow(context.Background(), query, regUser.Username, regUser.Email, regUser.PasswordHash).Scan(&id)
-        if err != nil {
+        if errors.Is(err, pgx.ErrNoRows) {
             return 0, errors.New("User already exists")
         }
-        return id, nil
+        return id, err
     })
 
     if err != nil {
