@@ -1,5 +1,6 @@
 [
     {
+        "name": "reg user 1",
         "sent": {
             "method": "POST",
             "url": "/api/user/reg",
@@ -15,6 +16,7 @@
         }
     },
     {
+        "name": "reg user 2",
         "sent": {
             "method": "POST",
             "url": "/api/user/reg",
@@ -29,6 +31,7 @@
         }
     },
     {
+        "name": "reg user 3",
         "sent": {
             "method": "POST",
             "url": "/api/user/reg",
@@ -44,6 +47,7 @@
         }
     },
     {
+        "name": "reg user with email that already exists",
         "sent": {
             "method": "POST",
             "url": "/api/user/reg",
@@ -55,10 +59,11 @@
         },
         "expected": {
             "code": 400,
-            "body": { "error": "User already exists" }
+            "body": { "type": "UserAlreadyExists" }
         }
     },
     {
+        "name": "reg user with empty email",
         "sent": {
             "method": "POST",
             "url": "/api/user/reg",
@@ -69,10 +74,11 @@
         },
         "expected": {
             "code": 400,
-            "body": { "error": "Invalid Email" }
+            "body": { "type": "IncorrectJsonField" }
         }
     },
     {
+        "name": "reg user with empty password hash",
         "sent": {
             "method": "POST",
             "url": "/api/user/reg",
@@ -83,10 +89,11 @@
         },
         "expected": {
             "code": 400,
-            "body": { "error": "Invalid PasswordHash" }
+            "body": { "type": "IncorrectJsonField" }
         }
     },
     {
+        "name": "reg user 4",
         "sent": {
             "method": "POST",
             "url": "/api/user/reg",
@@ -101,6 +108,7 @@
         }
     },
     {
+        "name": "reg user 5",
         "sent": {
             "method": "POST",
             "url": "/api/user/reg",

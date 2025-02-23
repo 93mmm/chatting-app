@@ -27,18 +27,24 @@ func MakeRequest(r Request) (*Responce, error) {
     if err != nil {
         return nil, err
     }
-    return &Responce{responce.StatusCode, string(body)}, nil
+    var resp Responce
+    resp.Code = responce.StatusCode
+
+    err = json.Unmarshal(body, &resp.Body)
+    if err != nil {
+        return nil, err
+    }
+    return &resp, nil
 }
 
 func PushTestUsers() {
     url := GetDatabaseServerUrl("/api/user/reg")
     for i := 0; i < 100; i++ {
-        MakeRequest(
-            Request{
-                Url: url,
-                Method: "POST",
-                Body: fmt.Sprintf(`{"email":"awesomeemail%v","pwdhash":"awesomehash"}`, i),
-            },
-        )
+        var request Request
+        request.Url = url
+        request.Method = "POST"
+        json.Unmarshal([]byte(fmt.Sprintf(`{"email":"awesomeemail%v","pwdhash":"awesomehash"}`, i)), &request.Body)
+
+        MakeRequest(request)
     }
 }

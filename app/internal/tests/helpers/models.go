@@ -1,18 +1,19 @@
 package helpers
 
 type Request struct {
-    Url         string      `json:"url"`
-    Method      string      `json:"method"`
-    ContentType string      `json:"content_type"`
-    Body        any         `json:"body"`
+    Url         string          `json:"url"`
+    Method      string          `json:"method"`
+    ContentType string          `json:"content_type"`
+    Body        map[string]any  `json:"body"`
 }
 
 type Responce struct {
-    Code        int         `json:"code"`
-    Body        any         `json:"body"`
+    Code        int             `json:"code"`
+    Body        map[string]any  `json:"body"`
 }
 
 type RRTest struct {
-    Sent        Request      `json:"sent"`
-    Expected    Responce     `json:"expected"`
+    Name        string          `json:"name"`
+    Sent        Request         `json:"sent"`
+    Expected    Responce        `json:"expected"`
 }

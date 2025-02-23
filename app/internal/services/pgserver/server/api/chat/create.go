@@ -7,7 +7,6 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
-// TODO
 func Create(c *gin.Context) {
     helpers.SendError(c, errors.New("Not implemented yet"))
 }

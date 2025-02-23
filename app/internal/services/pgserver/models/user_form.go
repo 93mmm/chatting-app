@@ -2,14 +2,14 @@ package models
 
 import (
 	"encoding/json"
-	"errors"
 	t "time"
 
+	se "github.com/93mmm/chatting-app/app/pkg/server_errors"
 	"github.com/gin-gonic/gin"
 )
 
 type RegUser struct {
-    Username        *string  `json:"username"`
+    Username        *string `json:"username"`
     Email           string  `json:"email"`
     PasswordHash    string  `json:"pwdHash"`
 }
@@ -17,19 +17,19 @@ type RegUser struct {
 func (this *RegUser) GetData(c *gin.Context) error {
     data, err := c.GetRawData()
     if err != nil {
-        return err 
+        return se.UndefinedError(err)
     }
     if err = json.Unmarshal(data, this); err != nil {
-        return err
+        return se.JsonCorruptedError()
     }
     if this.Username == nil || len(*this.Username) == 0 {
         this.Username = nil
     }
     if len(this.PasswordHash) == 0 {
-        return errors.New("Invalid PasswordHash")
+        return se.WrongKVError("pwdHash", this.PasswordHash)
     }
     if len(this.Email) == 0 {
-        return errors.New("Invalid Email")
+        return se.WrongKVError("email", this.Email)
     }
     return nil
 }

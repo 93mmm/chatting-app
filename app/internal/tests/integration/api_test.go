@@ -13,18 +13,23 @@ func TestUser(t *testing.T) {
         log.Fatal(err)
     }
     helpers.ClearDatabase()
-    // t.Cleanup(helpers.ClearDatabase)
 
     tests := []string{
         "user/reg.json",
         // "chat/create.json",
     }
     for _, jsonTest := range tests {
-        t.Run(jsonTest, func (t *testing.T) {
+        runTestFile := func(t *testing.T) {
             for _, link := range helpers.ReadJsonTests(jsonTest) {
-                responce, err := helpers.MakeRequest(link.Sent)
-                helpers.AssertExpected(t, link.Expected, *responce, err)
+                runTestRequest := func(t *testing.T) {
+                    responce, err := helpers.MakeRequest(link.Sent)
+                    helpers.AssertExpected(t, link.Expected, *responce, err)
+                }
+
+                t.Run(link.Name, runTestRequest)
             }
-        })
+        }
+
+        t.Run(jsonTest, runTestFile)
     }
 }
