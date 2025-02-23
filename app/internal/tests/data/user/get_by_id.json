@@ -1,0 +1,46 @@
+[
+    {
+        "name": "get user 1",
+        "sent": {
+            "method": "GET",
+            "url": "/api/user/get/1"
+        },
+        "expected": {
+            "code": 200,
+            "body": {
+                "id": 1,
+                "username": "awesomeusername",
+                "email": "awesomeemail"
+            }
+        }
+    },
+    {
+        "name": "get user 2",
+        "sent": {
+            "method": "GET",
+            "url": "/api/user/get/2"
+        },
+        "expected": {
+            "code": 200,
+            "body": {
+                "id": 2,
+                "username": null,
+                "email": "awesomeemail1",
+                "pwdhash": "awesomehash"
+            }
+        }
+    },
+    {
+        "name": "get user 10000000 (not found expected)",
+        "sent": {
+            "method": "GET",
+            "url": "/api/user/get/10000000"
+        },
+        "expected": {
+            "code": 400,
+            "body": {
+                "type": "UserNotFound"
+            }
+        }
+    }
+]
