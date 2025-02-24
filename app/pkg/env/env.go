@@ -2,6 +2,7 @@ package env
 
 import (
 	"errors"
+	"log"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -35,7 +36,7 @@ func Init() error {
     }
 
     if _, err = os.Stat(CWD + ".env"); errors.Is(err, os.ErrNotExist) {
-        return err;
+        log.Fatal(".env file doesn't exists, please check README.md to configure it")
     }
 
     err = godotenv.Load(CWD + ".env")

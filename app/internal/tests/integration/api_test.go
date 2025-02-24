@@ -17,7 +17,7 @@ func TestUser(t *testing.T) {
     tests := []string{
         "user/reg.json",
         "user/get_by_id.json",
-        // "chat/create.json",
+        "chat/create.json",
     }
     for _, jsonTest := range tests {
         runTestFile := func(t *testing.T) {

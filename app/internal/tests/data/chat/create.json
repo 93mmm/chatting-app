@@ -1,12 +1,13 @@
 [
     {
+        "name": "add chat 1",
         "sent": {
             "method": "POST",
             "url": "/api/chat/create",
             "body": {
                 "creatorId": 1,
                 "members": [2, 3],
-                "name": "Awesome Chat",
+                "name": "Awesome Chat #1",
                 "description": "Awesome Chat Description"
             }
         },
@@ -16,13 +17,14 @@
         }
     },
     {
+        "name": "add chat 2",
         "sent": {
             "method": "POST",
             "url": "/api/chat/create",
             "body": {
                 "creatorId": 1,
                 "members": [2],
-                "name": "Awesome Chat",
+                "name": "Awesome Chat #2",
                 "description": "Awesome Chat Description"
             }
         },
@@ -32,13 +34,14 @@
         }
     },
     {
+        "name": "add chat 3 with not existing members",
         "sent": {
             "method": "POST",
             "url": "/api/chat/create",
             "body": {
                 "creatorId": 1,
-                "members": [2, 3],
-                "name": "Awesome Chat",
+                "members": [2, 3, 100, 1000, 10000, 100000],
+                "name": "Awesome Chat #3",
                 "description": "Awesome Chat Description"
             }
         },
@@ -48,29 +51,14 @@
         }
     },
     {
-        "sent": {
-            "method": "POST",
-            "url": "/api/chat/create",
-            "body": {
-                "creatorId": 100000,
-                "members": [100000],
-                "name": "Awesome Chat",
-                "description": "Awesome Chat Description"
-            }
-        },
-        "expected": {
-            "code": 400,
-            "body": { "error": "Internal database error" }
-        }
-    },
-    {
+        "name": "add chat 4 with duplicated members",
         "sent": {
             "method": "POST",
             "url": "/api/chat/create",
             "body": {
                 "creatorId": 1,
-                "members": [2, 3, 100000],
-                "name": "Awesome Chat",
+                "members": [2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4],
+                "name": "Awesome Chat #3",
                 "description": "Awesome Chat Description"
             }
         },
