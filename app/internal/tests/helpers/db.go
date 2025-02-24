@@ -12,6 +12,5 @@ func ClearDatabase() {
         log.Fatal(err)
     }
     db.CreateConnection()
-    // defer db.Close()
     db.Exec("TRUNCATE Messages, ChatParticipants, Chats, Users RESTART IDENTITY CASCADE;")
 }

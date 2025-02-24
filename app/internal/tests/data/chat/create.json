@@ -66,5 +66,86 @@
             "code": 201,
             "body": { "id": 4 }
         }
+    },
+    {
+        "name": "create chat with wrong creatorId",
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 100000,
+                "members": [1],
+                "name": "Awesome Chat Fail",
+                "description": "Awesome Chat Description"
+            }
+        },
+        "expected": {
+            "code": 400,
+            "body": { "type": "UserNotFound" }
+        }
+    },
+    {
+        "name": "create chat with empty name",
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 100000,
+                "members": [1],
+                "description": "Awesome Chat Description"
+            }
+        },
+        "expected": {
+            "code": 400,
+            "body": { "type": "IncorrectJsonField" }
+        }
+    },
+    {
+        "name": "create chat with empty description",
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 100000,
+                "members": [1],
+                "name": "Awesome Chat Fail"
+            }
+        },
+        "expected": {
+            "code": 400,
+            "body": { "type": "UserNotFound" }
+        }
+    },
+    {
+        "name": "create chat with empty name and descr",
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 100000,
+                "members": [1]
+            }
+        },
+        "expected": {
+            "code": 400,
+            "body": { "type": "IncorrectJsonField" }
+        }
+    },
+    {
+        "name": "add chat 5 to check id",
+        "sent": {
+            "method": "POST",
+            "url": "/api/chat/create",
+            "body": {
+                "creatorId": 3,
+                "members": [2],
+                "name": "Awesome Chat #3",
+                "description": "Awesome Chat Description"
+            }
+        },
+        "expected": {
+            "code": 201,
+            "body": { "id": 5 }
+        }
     }
 ]
