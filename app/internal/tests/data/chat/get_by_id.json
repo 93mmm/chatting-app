@@ -1,0 +1,77 @@
+[
+    {
+        "name": "get chat 1",
+        "sent": {
+            "method": "GET",
+            "url": "/api/chat/get/1"
+        },
+        "expected": {
+            "code": 200,
+            "body": {
+                "chatId": 1,
+                "creatorId": 1,
+                "name": "Awesome Chat #1",
+                "description": "Awesome Chat Description"
+            }
+        }
+    },
+    {
+        "name": "get chat 2",
+        "sent": {
+            "method": "GET",
+            "url": "/api/chat/get/2"
+        },
+        "expected": {
+            "code": 200,
+            "body": {
+                "chatId": 2,
+                "creatorId": 1,
+                "name": "Awesome Chat #2",
+                "description": "Awesome Chat Description"
+            }
+        }
+    },
+    {
+        "name": "get chat 3",
+        "sent": {
+            "method": "GET",
+            "url": "/api/chat/get/3"
+        },
+        "expected": {
+            "code": 200,
+            "body": {
+                "chatId": 3,
+                "creatorId": 1,
+                "name": "Awesome Chat #3",
+                "description": "Awesome Chat Description"
+            }
+        }
+    },
+    {
+        "name": "get chat 4",
+        "sent": {
+            "method": "GET",
+            "url": "/api/chat/get/4"
+        },
+        "expected": {
+            "code": 200,
+            "body": {
+                "chatId": 4,
+                "creatorId": 1,
+                "name": "Awesome Chat #4",
+                "description": "Awesome Chat Description"
+            }
+        }
+    },
+    {
+        "name": "get not existing chat",
+        "sent": {
+            "method": "GET",
+            "url": "/api/chat/get/10000000"
+        },
+        "expected": {
+            "code": 404,
+            "body": { "type": "ChatNotFound" }
+        }
+    }
+]

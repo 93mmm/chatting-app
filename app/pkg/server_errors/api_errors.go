@@ -49,7 +49,11 @@ func UserAlreadyExists(uname *string, email string) *ApiError {
 }
 
 func UserNotFoundError(id int) *ApiError {
-    return newApiError(http.StatusBadRequest, ERR_USER_NOT_FOUND, map[string]any{"id": id})
+    return newApiError(http.StatusNotFound, ERR_USER_NOT_FOUND, map[string]any{"id": id})
+}
+
+func ChatNotFoundError(id int) *ApiError {
+    return newApiError(http.StatusNotFound, ERR_CHAT_NOT_FOUND, map[string]any{"id": id})
 }
 
 func JsonCorruptedError() *ApiError {

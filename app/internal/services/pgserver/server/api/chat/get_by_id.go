@@ -1,13 +1,26 @@
 package chat
 
 import (
-	"errors"
+	"net/http"
+	"strconv"
 
+	"github.com/93mmm/chatting-app/app/internal/services/pgserver/db"
 	"github.com/93mmm/chatting-app/app/internal/services/pgserver/helpers"
+	se "github.com/93mmm/chatting-app/app/pkg/server_errors"
 	"github.com/gin-gonic/gin"
 )
 
-// TODO
 func GetById(c *gin.Context) {
-    helpers.SendError(c, errors.New("Not implemented yet"))
+    id, err := strconv.Atoi(c.Param("id"))
+    if err != nil {
+        se.WrongValueError(c.Param("id")).Send(c)
+        return
+    }
+
+    user, err := db.GetChatInfo(id)
+    if err != nil {
+        se.UndefinedError(err).Send(c)
+        return
+    }
+    helpers.SendStruct(c, http.StatusOK, user)
 }

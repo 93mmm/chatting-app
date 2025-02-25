@@ -16,8 +16,9 @@ func setupRoutes(router *gin.Engine) {
     {
         chatApi := router.Group("/api/chat")
         
-        chatApi.POST("/create", chat.Create)
+        chatApi.POST("/create", chat.Create) // completed
         chatApi.GET("/get/:id", chat.GetById)
+        chatApi.GET("/get/:id/members", chat.GetChatMembers)
     }
 
     {

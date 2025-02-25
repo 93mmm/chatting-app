@@ -58,7 +58,7 @@
             "body": {
                 "creatorId": 1,
                 "members": [2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 4, 4, 4],
-                "name": "Awesome Chat #3",
+                "name": "Awesome Chat #4",
                 "description": "Awesome Chat Description"
             }
         },
@@ -80,7 +80,7 @@
             }
         },
         "expected": {
-            "code": 400,
+            "code": 404,
             "body": { "type": "UserNotFound" }
         }
     },
@@ -112,7 +112,7 @@
             }
         },
         "expected": {
-            "code": 400,
+            "code": 404,
             "body": { "type": "UserNotFound" }
         }
     },

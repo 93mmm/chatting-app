@@ -31,3 +31,15 @@ func AddChatMembers(chatId int, members []int) {
         conn.Exec(context.Background(), query, m, chatId, string('m'))
     }
 }
+
+func GetChatInfo(id int) (models.ChatInfo, error) {
+    var info models.ChatInfo
+    query := "SELECT creatorId, name, description FROM Chats WHERE id=$1"
+
+    info.ChatId = id
+    err := conn.QueryRow(context.Background(), query, id).Scan(&info.CreatorId, &info.Name, &info.Description)
+    if err != nil {
+        return info, se.ChatNotFoundError(info.ChatId)
+    }
+    return info, nil
+}
